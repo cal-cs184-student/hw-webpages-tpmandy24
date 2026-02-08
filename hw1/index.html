@@ -51,7 +51,12 @@
 		Give a high-level overview of what you implemented in this homework. Think about what you've built as a whole. Share your thoughts on what interesting things you've learned from completing the homework.
 
 		<h2>Task 1: Drawing Single-Color Triangles</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		We went through the process of building the rasterizer through the smallest value of our x and y coordinates. If it fits within the range of our constraints we then can rasterize the triangle and fill it in with the given color as in instructed.
+		The process of rasterization is when a smooth graphic or image is converted into a series of pixels. These pixels can present itself as singlar pixels, lines, dots, and for this specific instance triangles.
+		In other words, a graphic is converted and utilized as a series of pixels to create a raster image.
+
+		Our algorithm is no worse than the one that checks each sample within the boundaries of the defined triangles that are displayed wihtin the smallest rectangle.
+		We minimize the binding box of the triangle then enforce edge cases and checks to make sure it stays within bounds. This then efficiently correlates to each prospective pixel. 
 
 		<p>Here is an example 2x2 gridlike structure using an HTML table. Each <b>tr</b> is a row and each <b>td</b> is a column in that row. You might find this useful for framing and showing your result images in an organized fashion.</p>
 		<div style="display: flex; flex-direction: column; align-items: center;">
