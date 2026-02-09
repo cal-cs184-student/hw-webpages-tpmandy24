@@ -64,52 +64,65 @@
 			  <tr>
 				<td style="text-align: center;">
 				  <img src="task1test4.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
+				  <figcaption>Task 1 Test 4.</figcaption>
 				</td>
 				<td style="text-align: center;">
 				  <img src="task1test3.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
+				  <figcaption>Task 1 Test 3.</figcaption>
 				</td>
 			  </tr>
 			  <tr>
 				<td style="text-align: center;">
 				  <img src="task1test2.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
+				  <figcaption>Task 1 Test 2.</figcaption>
 				</td>
 				<td style="text-align: center;">
 				  <img src="task1test1.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
+				  <figcaption>Task 1 Test 1.</figcaption>
 				</td>
 			  </tr>
 			</table>
 		</div>
 		
 		<h2>Task 2: Antialiasing by Supersampling</h2>
-		At a sample rate of 1, each pixel is evaluated only once at its center, resulting in binary coverage and visibly jagged edges along thin triangles. When the sample rate is increased to 4, each pixel is subdivided into a 2×2 grid of sub-samples, allowing partial triangle coverage to be captured and producing smoother edges. At a sample rate of 16, a 4×4 grid is used, which further refines edge coverage and significantly reduces aliasing artifacts. These results occur because supersampling approximates the fraction of a pixel covered by the triangle by averaging multiple subpixel samples.		
-		<p>Task 2 Results</p>
+		To antialias triangle edges, we  implemented supersampling by evaluating multiple subpixel samples per output pixel and averaging the results. We used the provided sample_buffer, which stores sample_rate color samples for each pixel, effectively acting as a higher-resolution temporary framebuffer. The size of the sample buffer is width × height × sample_rate, and it is dynamically resized when the framebuffer size or sample rate changes.
+		During rasterization, instead of testing a single point at the center of each pixel, each pixel is subdivided into a uniform √sample_rate × √sample_rate grid. For each subpixel sample, we evaluate whether the sample point lies inside the triangle using edge functions. If the sample is inside the triangle, the corresponding entry in the sample buffer is filled with the triangle’s color; otherwise, it remains the background color.
+		Once all primitives are rasterized, the resolve_to_framebuffer step averages the sample_rate subpixel colors associated with each pixel and writes the resulting color to the final framebuffer. This resolves the high-resolution supersampled image back to screen resolution.		<p>Task 2 Results</p>
 		<div style="display: flex; flex-direction: column; align-items: center;">
 			<table style="width: 100%; text-align: center; border-collapse: collapse;">
 			  <tr>
 				<td style="text-align: center;">
 				  <img src="task2test4pixel1.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
+				  <figcaption>Task 2 Test 4 Pixel 1.</figcaption>
 				</td>
 				<td style="text-align: center;">
 				  <img src="task2test4pixel4.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
+				  <figcaption>Task 2 Test 4 Pixel 4.</figcaption>
 				</td>
 			  </tr>
 			  <tr>
 				<td style="text-align: center;">
 				  <img src="task2test4pixel16.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
+				  <figcaption>Task 2 Test 4 Pixel 16.</figcaption>
 				</td>
 			</tr>
 			</table>
 		</div>
 
 		<h2>Task 3: Transforms</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		For Task 3, we modified svg/transforms/robot.svg to create a more dynamic pose and saved the result as my_robot.svg in the docs/ directory. Our goal was to make the cubeman appear as if the figure were waving, with one arm rotated upward at the shoulder and bent slightly at the elbow.
+		To achieve this, we applied hierarchical transformations using SVG groups. The arm components were grouped together and rotated about their joint positions using the rotate transform, while translations were used to position the arm correctly relative to the torso. This ensured that transformations applied to parent groups correctly affected their child components.
+		We also adjusted the proportions slightly and changed some colors to better emphasize the motion of the waving arm. The final rendered image demonstrates that the translation, scaling, and rotation transforms implemented in transforms.cpp work correctly and compose as expected under hierarchical transformation.
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="lion.png" width="400px"/>
+				  <figcaption>Task 3 Transforms Waving Cubeman.</figcaption>
+				</td>
+			</tr>
+			</table>
+		</div>
 
 		<h2>Task 4: Barycentric coordinates</h2>
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
