@@ -128,11 +128,32 @@
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 		<h2>Task 5: "Pixel sampling" for texture mapping</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
+		Pixel sampling determines how we choose a color from a texture when mapping it onto a surface. Since texture coordinates ((u, v)) are continuous but texture images are made of discrete texels, we need a method to sample the correct color. In my implementation, I computed interpolated (u, v) coordinates using barycentric interpolation, converted them to texture space, and then sampled the texture using either nearest or bilinear sampling.
+		Nearest sampling selects the closest texel to the computed coordinate and returns its color. It is simple and fast but can look blocky or pixelated. Bilinear sampling instead uses the four surrounding texels and interpolates between them to produce a smoother result. The biggest visual difference appears when textures are magnified or contain sharp details, nearest sampling shows noticeable aliasing, while bilinear sampling smooths transitions and reduces artifacts.
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="lion.png" width="400px"/>
+				  <figcaption>Task 5 Pixel Sampling with Mipmaps.</figcaption>
+				</td>
+			</tr>
+			</table>
+		</div>
 		<h2>Task 6: "Level Sampling" with mipmaps for texture mapping</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
+		Level sampling is the process of choosing which mipmap level of a texture to sample from during texture mapping. Mipmaps are lower resolution versions of a texture that reduce aliasing when the texture appears small on the screen. Instead of always sampling the highest resolution image, the renderer selects a level based on how quickly the texture coordinates change across nearby pixels.
+		In our implementation, we estimated the rate of change of the (u, v) coordinates to compute a level of detail value. We then selected either the closest mipmap level or interpolated between two levels, and applied the chosen pixel sampling method within that level.
+		Pixel sampling affects how colors are chosen within a single texture level, with bilinear producing smoother results than nearest at a small performance cost. Level sampling improves texture antialiasing when textures are far away, but requires extra memory to store mipmaps. Increasing the number of samples per pixel provides the strongest overall antialiasing, but significantly increases computation time and memory usage.
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="task6test1.png" width="400px"/>
+				  <figcaption>Task 6 Level Sampling with Mipmaps.</figcaption>
+				</td>
+			</tr>
+			</table>
+		</div>
 		<h2>(Optional) Task 7: Extra Credit - Draw Something Creative!</h2>
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
