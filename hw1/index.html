@@ -117,7 +117,7 @@
 			<table style="width: 100%; text-align: center; border-collapse: collapse;">
 			  <tr>
 				<td style="text-align: center;">
-				  <img src="lion.png" width="400px"/>
+				  <img src="task3.png" width="400px"/>
 				  <figcaption>Task 3 Transforms Waving Cubeman.</figcaption>
 				</td>
 			</tr>
@@ -125,19 +125,73 @@
 		</div>
 
 		<h2>Task 4: Barycentric coordinates</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
+		Barycentric coordinates are a way of expressing any point inside a triangle as a weighted combination of the triangle’s three vertices. Instead of describing a point using standard (x, y) coordinates, we describe it using three weights, commonly written in the form (alpha, beta, gamma). These weights represent how much influence each vertex has on that point, and they always add up to 1. If a point is closer to one vertex, that vertex’s weight will be larger.
+		For example, if each vertex of a triangle is assigned a different color (red, green, and blue), barycentric coordinates let us smoothly blend those colors across the triangle. A point near the red vertex will look more red, while a point near the center, where the weights are similar, will appear as a balanced mix of red, green, and blue.
+		In our implementation, we used barycentric coordinates to determine whether a pixel lies inside a triangle and to interpolate values across its surface. After computing the barycentric weights (alpha, beta, gamma) for each pixel, we used them to interpolate attributes such as color or texture coordinates. This produces smooth transitions across the triangle and enables accurate shading and texture mapping.
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="task4test7.png" width="400px"/>
+				  <figcaption>Task 4 Barycentric Coordinates.</figcaption>
+				</td>
+			</tr>
+			</table>
+		</div>
 		<h2>Task 5: "Pixel sampling" for texture mapping</h2>
 		Pixel sampling determines how we choose a color from a texture when mapping it onto a surface. Since texture coordinates ((u, v)) are continuous but texture images are made of discrete texels, we need a method to sample the correct color. In my implementation, I computed interpolated (u, v) coordinates using barycentric interpolation, converted them to texture space, and then sampled the texture using either nearest or bilinear sampling.
 		Nearest sampling selects the closest texel to the computed coordinate and returns its color. It is simple and fast but can look blocky or pixelated. Bilinear sampling instead uses the four surrounding texels and interpolates between them to produce a smoother result. The biggest visual difference appears when textures are magnified or contain sharp details, nearest sampling shows noticeable aliasing, while bilinear sampling smooths transitions and reduces artifacts.
 		<div style="display: flex; flex-direction: column; align-items: center;">
 			<table style="width: 100%; text-align: center; border-collapse: collapse;">
-			  <tr>
+				<tr>
 				<td style="text-align: center;">
-				  <img src="lion.png" width="400px"/>
-				  <figcaption>Task 5 Pixel Sampling with Mipmaps.</figcaption>
+				  <img src="level0bilin1.png" width="400px"/>
+				  <figcaption>Task 5 Pixel Sampling: Level 9 Bilin 1.</figcaption>
 				</td>
 			</tr>
+			<tr>
+				<td style="text-align: center;">
+				  <img src="level0bilin1zoom.png" width="400px"/>
+				  <figcaption>Task 5 Pixel Sampling: Level 0 Bilin 1 Zoom.</figcaption>
+				</td>
+			</tr>
+			<tr>
+				<td style="text-align: center;">
+				  <img src="level0bilin16.png" width="400px"/>
+				  <figcaption>Task 5 Pixel Sampling: Level 0 Bilin 16.</figcaption>
+				</td>
+			</tr>
+			<tr>
+				<td style="text-align: center;">
+				  <img src="level0bilin16zoom.png" width="400px"/>
+				  <figcaption>Task 5 Pixel Sampling: Level 0 Bilin 16 Zoom.</figcaption>
+				</td>
+			</tr>
+			<tr>
+				<td style="text-align: center;">
+				  <img src="level0nearest1.png" width="400px"/>
+				  <figcaption>Task 5 Pixel Sampling: Level 0 Nearest 1.</figcaption>
+				</td>
+			</tr>
+			<tr>
+				<td style="text-align: center;">
+				  <img src="level0nearest1zoom.png" width="400px"/>
+				  <figcaption>Task 5 Pixel Sampling: Level 0 Nearest 1 Zoom.</figcaption>
+				</td>
+			</tr>
+			<tr>
+				<td style="text-align: center;">
+				  <img src="level0nearest16.png" width="400px"/>
+				  <figcaption>Task 5 Pixel Sampling: Level 0 Nearest 16.</figcaption>
+				</td>
+			</tr>
+			<tr>
+				<td style="text-align: center;">
+				  <img src="level0nearest16zoom.png" width="400px"/>
+				  <figcaption>Task 5 Pixel Sampling: Level 0 Nearest 16 Zoom.</figcaption>
+				</td>
+			</tr>
+
 			</table>
 		</div>
 		<h2>Task 6: "Level Sampling" with mipmaps for texture mapping</h2>
