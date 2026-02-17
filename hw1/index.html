@@ -200,12 +200,55 @@
 		Pixel sampling affects how colors are chosen within a single texture level, with bilinear producing smoother results than nearest at a small performance cost. Level sampling improves texture antialiasing when textures are far away, but requires extra memory to store mipmaps. Increasing the number of samples per pixel provides the strongest overall antialiasing, but significantly increases computation time and memory usage.
 		<div style="display: flex; flex-direction: column; align-items: center;">
 			<table style="width: 100%; text-align: center; border-collapse: collapse;">
-			  <tr>
+				<tr>
 				<td style="text-align: center;">
-				  <img src="task6test1.png" width="400px"/>
-				  <figcaption>Task 6 Level Sampling with Mipmaps.</figcaption>
+				  <img src="l0plin.png" width="400px"/>
+				  <figcaption>Task 6 Pixel Sampling: Level 0 Bilin 1.</figcaption>
 				</td>
 			</tr>
+			<tr>
+				<td style="text-align: center;">
+				  <img src="l0plinzoom.png" width="400px"/>
+				  <figcaption>Task 6 Pixel Sampling: Level 0 Bilin 1 Zoom.</figcaption>
+				</td>
+			</tr>
+			<tr>
+				<td style="text-align: center;">
+				  <img src="l0pnear.png" width="400px"/>
+				  <figcaption>Task 6 Pixel Sampling: Level 0 Nearest 1.</figcaption>
+				</td>
+			</tr>
+			<tr>
+				<td style="text-align: center;">
+				  <img src="l0pnearzoom.png" width="400px"/>
+				  <figcaption>Task 6 Pixel Sampling: Level 0 Nearest 1 Zoom.</figcaption>
+				</td>
+			</tr>
+			<tr>
+				<td style="text-align: center;">
+				  <img src="lnearplin.png" width="400px"/>
+				  <figcaption>Task 6 Pixel Sampling: Level 0 Nearest 1.</figcaption>
+				</td>
+			</tr>
+			<tr>
+				<td style="text-align: center;">
+				  <img src="lnearplinzoom.png" width="400px"/>
+				  <figcaption>Task 6 Pixel Sampling: Level 0 Nearest 1 Zoom.</figcaption>
+				</td>
+			</tr>
+			<tr>
+				<td style="text-align: center;">
+				  <img src="lnearpnear.png" width="400px"/>
+				  <figcaption>Task 6 Pixel Sampling: Level 0 Nearest 16.</figcaption>
+				</td>
+			</tr>
+			<tr>
+				<td style="text-align: center;">
+				  <img src="lnearpnearzoom.png" width="400px"/>
+				  <figcaption>Task 6 Pixel Sampling: Level 0 Nearest 16 Zoom.</figcaption>
+				</td>
+			</tr>
+
 			</table>
 		</div>
 		<h2>(Optional) Task 7: Extra Credit - Draw Something Creative!</h2>
