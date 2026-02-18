@@ -28,7 +28,7 @@
 	<body>
 		<div class="container">
 		<h1>CS184/284A Spring 2025 Homework 1 Write-Up</h1>
-		<div style="text-align: center;">Names: </div>
+		<div style="text-align: center;">Names: Mandy Pham and Kathleen Hua </div>
 
 		<br>
 
@@ -40,7 +40,7 @@
 
 		<figure>
 			<img src="lion.jpg" alt="Lion" style="width:50%"/>
-			<figcaption>You can add images with captions!</figcaption>
+			<!--<figcaption>You can add images with captions!</figcaption>-->
 		</figure>
 
 		<!--
@@ -48,8 +48,9 @@
 		-->
 
 		<h2>Overview</h2>
-		Give a high-level overview of what you implemented in this homework. Think about what you've built as a whole. Share your thoughts on what interesting things you've learned from completing the homework.
-
+		In this homework, we built a complete software rasterization pipeline step by step. We started by implementing triangle rasterization using a bounding box and edge tests to fill single color triangles. We then improved visual quality through supersampling, which reduced aliasing by evaluating multiple subpixel samples per pixel and averaging the results.
+		Next, we applied hierarchical transformations (translation and rotation) to manipulate SVG shapes, reinforcing how transformation matrices compose in parent-child structures. We implemented barycentric coordinates to determine whether a point lies inside a triangle and to smoothly interpolate attributes like color and texture coordinates.
+		Finally, we explored texture mapping using nearest and bilinear pixel sampling, and implemented mipmap based level sampling to reduce aliasing when textures appear small. Overall, the assignment demonstrated how rasterization, interpolation, sampling, and level of detail selection work together to produce high quality rendered images.
 		<h2>Task 1: Drawing Single-Color Triangles</h2>
 		We went through the process of building the rasterizer through the smallest value of our x and y coordinates. If it fits within the range of our constraints we then can rasterize the triangle and fill it in with the given color as in instructed.
 		The process of rasterization is when a smooth graphic or image is converted into a series of pixels. These pixels can present itself as singlar pixels, lines, dots, and for this specific instance triangles.
