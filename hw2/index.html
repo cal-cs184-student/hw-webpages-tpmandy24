@@ -117,11 +117,44 @@
 		<h2>Section II: Triangle Meshes and Half-Edge Data Structure</h2>
 
 		<h3>Part 3: Area-weighted vertex normals</h3>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		To compute area-weighted vertex normals, we iterated through all faces incident to a vertex using the half-edge structure. Starting from the vertex’s outgoing halfedge, we traversed neighboring triangles by repeatedly following the twin and next pointers.
+		For each triangle, we computed two edge vectors using the positions of its vertices and took their cross product to obtain the face normal. Since the magnitude of the cross product is proportional to the triangle’s area, this automatically produces an area-weighted normal. We accumulated these face normals and normalized the final result to obtain a unit vertex normal.
+		This implementation allows smooth shading across the surface when Phong shading is enabled.
 
+		In flat shading, each triangle appears visibly distinct because each face uses its own normal. After toggling to vertex normals, the shading becomes smooth and continuous across the surface, confirming that the area-weighted normals were implemented correctly.		<div style="display: flex; flex-direction: column; align-items: center;">
+		<div>
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="task3pt1.png" width="400px"/>
+				  <figcaption>Teapot with default flat shading</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="task3pt2.png" width="400px"/>
+				  <figcaption>Teapot after pressing Q to enable vertex normals</figcaption>
+			</tr>
+			</table>
+		</div>
 		<h3>Part 4: Edge flip</h3>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		To implement the edge flip operation, we first retrieved all halfedges, vertices, edges, and faces associated with the selected edge and its two adjacent triangles. Since edge flipping does not create or delete elements, we only reassigned pointers.
+		We carefully updated the next, twin, vertex, edge, and face pointers for all six halfedges involved in the local configuration. We also reassigned the halfedge pointers for the affected vertices and faces to ensure that every element in the mesh continued to reference valid neighbors. We added a boundary check at the start of the function to prevent flipping boundary edges.
+		The operation runs in constant time because it only modifies a fixed number of local elements.
 
+		During debugging, we drew a diagram of the two triangles involved in the flip and labeled all halfedges, vertices, and faces before and after the operation. Most issues were caused by forgetting to update one of the halfedge pointers or assigning an incorrect next pointer, which led to broken mesh connectivity.
+
+		To debug, we repeatedly flipped the same edge multiple times and flipped nearby edges to ensure the mesh remained consistent. Ensuring that every pointer was explicitly reassigned resolved the issues.		<div>
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="task4pt1.png" width="400px"/>
+				  <figcaption>Teapot before flipping edges</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="task4pt2.png" width="400px"/>
+				  <figcaption>Teapot after flipping edges</figcaption>
+			</tr>
+			</table>
+		</div>
 		<h3>Part 5: Edge split</h3>
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
