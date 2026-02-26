@@ -28,15 +28,15 @@
 	<body>
 		<div class="container">
 		<h1>CS184/284A Spring 2025 Homework 2 Write-Up</h1>
-		<div style="text-align: center;">Names: </div>
+		<div style="text-align: center;">Names: Mandy Pham and Kathleen Hua </div>
 
 		<br>
 
-		Link to webpage: (TODO) <a href="https://cs184.eecs.berkeley.edu/sp25">cs184.eecs.berkeley.edu/sp25</a>
+		Link to webpage: <a href="https://cal-cs184-student.github.io/hw-webpages-tpmandy24/">https://cal-cs184-student.github.io/hw-webpages-tpmandy24/</a>
 
 		<br>
 		
-		Link to GitHub repository: (TODO) <a href="https://cs184.eecs.berkeley.edu/sp25">cs184.eecs.berkeley.edu/sp25</a>
+		Link to GitHub repository: <a href="https://github.com/cal-cs184-student/hw2-meshedit-mandyleeen">https://github.com/cal-cs184-student/hw2-meshedit-mandyleeen</a>
 
 		<figure>
 			<img src="teapot.png" alt="Teapot" style="width:50%"/>
@@ -53,28 +53,41 @@
 		<h2>Section I: Bezier Curves and Surfaces</h2>
 
 		<h3>Part 1: Bezier curves with 1D de Casteljau subdivision</h3>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
+		De Casteljau’s algorithm evaluates a Bezier curve using repeated linear interpolation between control points. Given a parameter t between 0 and 1, we compute new points between every pair of adjacent control points using linear interpolation. The formula we use is:
+		newPoint = (1 - t) * p1 + t * p2
+		Each subdivision step reduces the number of control points by one. We continue applying this process until only one point remains. That final point lies on the Bezier curve at parameter t.
+		This algorithm is numerically stable and avoids directly computing polynomial equations.
+		We implemented the recursive subdivision step inside BezierCurve::evaluateStep. The function takes a vector of 2D control points and produces a new vector where each element is the linear interpolation of adjacent points using the member variable t. Each call performs one level of subdivision. When this function is repeatedly called, the control polygon collapses to a single point, which is the evaluated point on the curve.
 		<p>Here is an example 2x2 gridlike structure using an HTML table. Each <b>tr</b> is a row and each <b>td</b> is a column in that row. You might find this useful for framing and showing your result images in an organized fashion.</p>
 		<div style="display: flex; flex-direction: column; align-items: center;">
 			<table style="width: 100%; text-align: center; border-collapse: collapse;">
 			  <tr>
 				<td style="text-align: center;">
-				  <img src="teapot.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
+				  <img src="task1pt1.png" width="400px"/>
+				  <figcaption>.</figcaption>
 				</td>
 				<td style="text-align: center;">
-				  <img src="teapot.png" width="400px"/>
+				  <img src="task1pt2.png" width="400px"/>
 				  <figcaption>Caption goes here.</figcaption>
 				</td>
 			  </tr>
 			  <tr>
 				<td style="text-align: center;">
-				  <img src="teapot.png" width="400px"/>
+				  <img src="task1pt3.png" width="400px"/>
 				  <figcaption>Caption goes here.</figcaption>
 				</td>
 				<td style="text-align: center;">
-				  <img src="teapot.png" width="400px"/>
+				  <img src="task1pt4.png" width="400px"/>
+				  <figcaption>Caption goes here.</figcaption>
+				</td>
+			  </tr>
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="task1pt5.png" width="400px"/>
+				  <figcaption>Caption goes here.</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="task1pt6.png" width="400px"/>
 				  <figcaption>Caption goes here.</figcaption>
 				</td>
 			  </tr>
@@ -82,8 +95,25 @@
 		</div>
 
 		<h3>Part 2: Bezier surfaces with separable 1D de Casteljau</h3>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		Bezier surfaces extend the 1D de Casteljau algorithm by applying it twice. Since a Bezier surface is defined by an n by n grid of control points, we evaluate it in two stages.
+		First, each row of control points is treated as a Bezier curve parameterized by u. Using the same 1D de Casteljau algorithm from Part 1, we evaluate each row at parameter u. This produces one intermediate point per row.
+		Next, we treat those intermediate points as a new Bezier curve parameterized by v. We apply the same 1D algorithm again to evaluate this curve at parameter v. The result is a single point that lies on the Bezier surface at parameters u and v.
+		This works because Bezier surfaces are separable, meaning we can evaluate one parameter at a time.
 
+		Weimplemented three functions.
+		BezierPatch::evaluateStep performs one interpolation step on a vector of 3D points using the same linear interpolation formula as in Part 1.
+		BezierPatch::evaluate1D repeatedly calls evaluateStep until only one point remains, fully evaluating a Bezier curve at a given parameter.
+		BezierPatch::evaluate first evaluates each row of control points at parameter u, stores the resulting intermediate points, and then evaluates those points at parameter v to compute the final surface point.
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="task2_mesheditteapot.png" width="400px"/>
+				  <figcaption>..</figcaption>
+				</td>
+			</tr>
+			</table>
+		</div>
 		<h2>Section II: Triangle Meshes and Half-Edge Data Structure</h2>
 
 		<h3>Part 3: Area-weighted vertex normals</h3>
