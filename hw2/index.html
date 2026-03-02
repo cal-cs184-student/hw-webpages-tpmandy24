@@ -173,24 +173,35 @@
 			</table>
 		</div>
 		<h3>Part 6: Loop subdivision for mesh upsampling</h3>
-		Loop subdivision was implemented in three phases. First, before any topology changes, new positions were computed for all existing vertices using the weighted average formula (1 - n*u) * original_position + u * neighbor_sum, where u = 3/16 for degree-3 vertices and u = 3/(8n) otherwise. Edge midpoint positions were also precomputed as 3/8 * (A + B) + 1/8 * (C + D).
-		Second, the mesh was subdivided by splitting every original edge (snapshotted beforehand to avoid splitting newly created edges) and assigning the precomputed midpoint position to each new vertex. New diagonal edges (e2, e3) were marked isNew = true, while edges lying along the original edge (e0, e1) were marked isNew = false. Finally, any new edge connecting one old and one new vertex was flipped to complete the 4-1 subdivision pattern.
-		The key debugging insight was using printf to trace isNew flags on vertices and edges during Step 4, which revealed that edge halfedge orientation caused va to always be the new midpoint vertex, confirming which edges were actually being flipped.
+		We implemented Loop subdivision in three phases. First, before any topology changes, we computed new positions for all existing vertices using the weighted average formula (1 - n*u) * original_position + u * neighbor_sum, where u = 3/16 for degree-3 vertices and u = 3/(8n) otherwise. We also precomputed new positions for edge midpoints using the formula 3/8 * (A + B) + 1/8 * (C + D), where A and B are the edge endpoints and C and D are the opposite vertices from adjacent faces. Precomputing all geometry before modifying the mesh ensured we did not mix old and new values during subdivision.
+		Second, we performed the topological 4-1 subdivision. We first snapshotted all original edges to avoid splitting edges created during the same pass. Each original interior edge was split exactly once, and the precomputed midpoint position was assigned to each new vertex. New diagonal edges created by the split were marked as isNew = true, while edges lying along the original edge were marked as isNew = false. After splitting, we flipped only those new edges that connected one old vertex and one new vertex, which completed the proper 4-1 subdivision structure.
+		A key debugging insight was printing the isNew flags for vertices and edges during the flipping step. This helped us verify which edges were actually being flipped. We observed that edge halfedge orientation consistently made one endpoint the new midpoint vertex, which clarified how to correctly identify edges that required flipping.
+		After Loop subdivision, sharp corners and edges progressively become smoother. The weighted averaging pulls vertices toward their neighbors, reducing curvature and rounding high-curvature regions. After three or four iterations, even very sharp creases become nearly invisible.
+		Pre-splitting edges along sharp features before subdivision helps preserve them. Increasing local vertex density reduces how strongly averaging alters the shape, allowing sharp features to remain more prominent after subdivision.
+		The cube becomes asymmetric under repeated subdivision because each square face is triangulated by a single diagonal, and these diagonals are not arranged symmetrically across all faces. Since Loop subdivision averages vertex positions based on local connectivity, vertices with different triangulation neighborhoods shift differently, introducing asymmetry.
+		Pre-processing the cube by splitting each face diagonal to create an X-shaped triangulation with a central vertex gives each corner vertex a more symmetric neighborhood. After this adjustment, repeated subdivision produces a much more symmetric rounded cube.
+		Screenshots include multiple iterations of subdivision on the cube, comparisons of sharp-feature meshes before and after smoothing, and side-by-side results showing improved symmetry after pre-processing.
 
-		After loop subdivision, sharp corners and edges become progressively smoother. This is because the weighted averaging scheme pulls vertices toward their neighbors, rounding out any high-curvature regions. After 3–4 iterations, even very sharp creases become nearly invisible.
-		Pre-splitting edges along a sharp feature before subdividing helps preserve it. By increasing the local vertex density, the averaging has less room to smooth things out, and the feature remains more prominent after subdivision
-		
-		The cube becomes asymmetric because each face of the original cube is split into two triangles by a single diagonal edge, and these diagonals are not symmetric across the cube's faces. When Loop subdivision averages vertex positions, vertices with different neighborhoods (due to the asymmetric diagonals) get pulled in different directions.
-		Pre-processing by splitting the diagonal edge on each face so each face has an X pattern of 4 triangles with a central vertex gives every corner vertex a symmetric neighborhood. After this pre-processing, repeated subdivision produces a symmetric rounded cube.
 		<table style="width: 100%; text-align: center; border-collapse: collapse;">
 			  <tr>
 				<td style="text-align: center;">
-				  <img src="task5before.png" width="400px"/>
-				  <figcaption>Observations on Sharp Features</figcaption>
+				  <img src="cube2up.png" width="400px"/>
+				  <figcaption>Observations on Sharp Features Non-Symmetrical</figcaption>
 				</td>
 				<td style="text-align: center;">
-				  <img src="task5after.png" width="400px"/>
+				  <img src="cube3up.png" width="400px"/>
 				  <figcaption>Cube Asymmetry</figcaption>
+			</tr>
+				<tr>
+				<td style="text-align: center;">
+				  <img src="sym1.png" width="400px"/>
+				</td>
+				<td style="text-align: center;">
+				  <img src="sym2.png" width="400px"/>
+				</td>
+				<td>
+				  <img src="sym3.png" width="400px"/>
+				</td>
 			</tr>
 			</table>
 		</div>
