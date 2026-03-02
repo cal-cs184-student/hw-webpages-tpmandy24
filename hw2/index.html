@@ -156,12 +156,45 @@
 			</table>
 		</div>
 		<h3>Part 5: Edge split</h3>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
+		To implement the edge split operation, we first retrieved all halfedges, vertices, edges, and faces associated with the selected edge and its two adjacent triangles. Since splitting an edge modifies the local mesh structure, we carefully stored references to all elements before making any changes.
+		We ignored boundary edges by returning immediately if the selected edge was on the boundary. For interior edges, we created a new vertex at the midpoint of the original edge and assigned its position as the average of the two endpoint vertex positions.
+		Next, we created the necessary new halfedges, edges, and faces to subdivide the two original triangles into four smaller triangles. We then reassigned all next, twin, vertex, edge, and face pointers for both existing and newly created elements. Because the half-edge data structure is pointer-based, it was important to explicitly update every pointer in the local neighborhood to maintain mesh consistency.
+		The implementation performs a constant amount of work since it only modifies a fixed number of elements around the selected edge.
+		<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="task5before.png" width="400px"/>
+				  <figcaption>Mesh before edge splits</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="task5after.png" width="400px"/>
+				  <figcaption>Mesh after several edge splits</figcaption>
+			</tr>
+			</table>
+		</div>
 		<h3>Part 6: Loop subdivision for mesh upsampling</h3>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		Loop subdivision was implemented in three phases. First, before any topology changes, new positions were computed for all existing vertices using the weighted average formula (1 - n*u) * original_position + u * neighbor_sum, where u = 3/16 for degree-3 vertices and u = 3/(8n) otherwise. Edge midpoint positions were also precomputed as 3/8 * (A + B) + 1/8 * (C + D).
+		Second, the mesh was subdivided by splitting every original edge (snapshotted beforehand to avoid splitting newly created edges) and assigning the precomputed midpoint position to each new vertex. New diagonal edges (e2, e3) were marked isNew = true, while edges lying along the original edge (e0, e1) were marked isNew = false. Finally, any new edge connecting one old and one new vertex was flipped to complete the 4-1 subdivision pattern.
+		The key debugging insight was using printf to trace isNew flags on vertices and edges during Step 4, which revealed that edge halfedge orientation caused va to always be the new midpoint vertex, confirming which edges were actually being flipped.
 
-		<h2>(Optional) Section III: Potential Extra Credit - Art Competition: Model something Creative</h2>
+		After loop subdivision, sharp corners and edges become progressively smoother. This is because the weighted averaging scheme pulls vertices toward their neighbors, rounding out any high-curvature regions. After 3–4 iterations, even very sharp creases become nearly invisible.
+		Pre-splitting edges along a sharp feature before subdividing helps preserve it. By increasing the local vertex density, the averaging has less room to smooth things out, and the feature remains more prominent after subdivision
+		
+		The cube becomes asymmetric because each face of the original cube is split into two triangles by a single diagonal edge, and these diagonals are not symmetric across the cube's faces. When Loop subdivision averages vertex positions, vertices with different neighborhoods (due to the asymmetric diagonals) get pulled in different directions.
+		Pre-processing by splitting the diagonal edge on each face so each face has an X pattern of 4 triangles with a central vertex gives every corner vertex a symmetric neighborhood. After this pre-processing, repeated subdivision produces a symmetric rounded cube.
+		<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="task5before.png" width="400px"/>
+				  <figcaption>Observations on Sharp Features</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="task5after.png" width="400px"/>
+				  <figcaption>Cube Asymmetry</figcaption>
+			</tr>
+			</table>
+		</div>
+		<!---<h2>(Optional) Section III: Potential Extra Credit - Art Competition: Model something Creative</h2>
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 		<h2>Additional Notes (please remove)</h2>
@@ -173,7 +206,7 @@
 					<li>You can write display equations like so: \[ a^2 + b^2 = c^2 \]</li>
 				</ul>
 			</li>
-		</ul>
+		</ul> -->
 		</div>
 	</body>
 </html>
