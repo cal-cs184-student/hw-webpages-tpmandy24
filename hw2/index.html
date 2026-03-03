@@ -182,8 +182,8 @@
 		The cube becomes asymmetric under repeated subdivision because each square face is triangulated by a single diagonal, and these diagonals are not arranged symmetrically across all faces. Since Loop subdivision averages vertex positions based on local connectivity, vertices with different triangulation neighborhoods shift differently, introducing asymmetry.
 		Pre-processing the cube by splitting each face diagonal to create an X-shaped triangulation with a central vertex gives each corner vertex a more symmetric neighborhood. After this adjustment, repeated subdivision produces a much more symmetric rounded cube.
 		Screenshots include multiple iterations of subdivision on the cube, comparisons of sharp-feature meshes before and after smoothing, and side-by-side results showing improved symmetry after pre-processing.
-
-		<table style="width: 100%; text-align: center; border-collapse: collapse;">
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
 			  <tr>
 				<td style="text-align: center;">
 				  <img src="cube2up.png" width="400px"/>
@@ -191,21 +191,22 @@
 				</td>
 				<td style="text-align: center;">
 				  <img src="cube3up.png" width="400px"/>
-				  <figcaption>Cube Asymmetry</figcaption>
-			</tr>
-				<tr>
+				</td>
+			  </tr>
+			  <tr>
 				<td style="text-align: center;">
 				  <img src="sym1.png" width="400px"/>
+				  <figcaption>Cube Symmetry After Preprocessing</figcaption>
 				</td>
 				<td style="text-align: center;">
 				  <img src="sym2.png" width="400px"/>
 				</td>
-			</tr>
-			<tr>
-				<td>
+			  </tr>
+			  <tr>
+				<td style="text-align: center;">
 				  <img src="sym3.png" width="400px"/>
 				</td>
-			</tr>
+			  </tr>
 			</table>
 		</div>
 		<!---<h2>(Optional) Section III: Potential Extra Credit - Art Competition: Model something Creative</h2>
