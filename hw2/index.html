@@ -59,7 +59,6 @@
 		Each subdivision step reduces the number of control points by one. We continue applying this process until only one point remains. That final point lies on the Bezier curve at parameter t.
 		This algorithm is numerically stable and avoids directly computing polynomial equations.
 		We implemented the recursive subdivision step inside BezierCurve::evaluateStep. The function takes a vector of 2D control points and produces a new vector where each element is the linear interpolation of adjacent points using the member variable t. Each call performs one level of subdivision. When this function is repeatedly called, the control polygon collapses to a single point, which is the evaluated point on the curve.
-		<p>Here is an example 2x2 gridlike structure using an HTML table. Each <b>tr</b> is a row and each <b>td</b> is a column in that row. You might find this useful for framing and showing your result images in an organized fashion.</p>
 		<div style="display: flex; flex-direction: column; align-items: center;">
 			<table style="width: 100%; text-align: center; border-collapse: collapse;">
 			  <tr>
