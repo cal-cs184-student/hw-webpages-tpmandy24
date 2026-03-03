@@ -47,10 +47,11 @@
 		-->
 
 		<h2>Overview</h2>
-		We implemented a full geometry processing pipeline for Bezier curves, Bezier surfaces, and triangle meshes using the half-edge data structure. In Section I, we built de Casteljau’s algorithm to evaluate Bezier curves and extended it to Bezier surfaces using separable 1D subdivision. This reinforced how recursive linear interpolation produces smooth parametric geometry in a numerically stable way.
-		In Section II, we implemented core local remeshing operations on triangle meshes, including area-weighted vertex normals for smooth shading, edge flips for connectivity modification, and edge splits for local refinement. These operations required carefully maintaining half-edge pointer consistency while ensuring constant-time updates.
-		Finally, we implemented Loop subdivision to perform global mesh upsampling. This combined geometric averaging with systematic topological refinement, producing progressively smoother surfaces. Through debugging and experimentation, we gained a deeper understanding of how local connectivity affects global surface behavior, particularly how triangulation symmetry impacts subdivision results.
-		Overall, this project strengthened our understanding of geometric representations, pointer-based mesh structures, and the relationship between topology and surface smoothness in computer graphics.
+		We built a geometry processing pipeline for Bezier curves, Bezier surfaces, and triangle meshes using the half-edge data structure.
+		In Section I, we implemented de Casteljau’s algorithm to evaluate Bezier curves and extended it to Bezier surfaces using repeated 1D interpolation. This showed how recursive linear interpolation creates smooth parametric shapes in a stable way.
+		In Section II, we implemented key mesh operations: computing area-weighted vertex normals for smooth shading, performing edge flips to change connectivity, and edge splits for local refinement. These required careful updates to half-edge pointers while keeping operations efficient.
+		Finally, we implemented Loop subdivision for global mesh upsampling. This method combines geometric averaging with systematic mesh refinement to produce smoother surfaces. Through debugging, we learned how local connectivity and triangulation patterns affect the overall smoothness of a surface.
+		Overall, this project strengthened our understanding of geometric representations, half-edge mesh structures, and how mesh topology influences surface smoothness in computer graphics.
 		<h2>Section I: Bezier Curves and Surfaces</h2>
 
 		<h3>Part 1: Bezier curves with 1D de Casteljau subdivision</h3>
