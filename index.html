@@ -1,479 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-	<meta http-equiv="content-type" content="text/html; charset=utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>CS184/284A Homework Webpages</title>
-
+	<head>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 	<style>
-		* {
-			box-sizing: border-box;
-		}
-
-		body {
-			font-family: 'Inter', sans-serif;
-			line-height: 1.6;
-			color: #f8e7e7;
-			background:
-				radial-gradient(circle at top left, rgba(255, 0, 68, 0.25), transparent 35%),
-				radial-gradient(circle at bottom right, rgba(180, 0, 0, 0.35), transparent 40%),
-				linear-gradient(135deg, #080506 0%, #160406 45%, #300609 100%);
-			min-height: 100vh;
-			margin: 0;
-			padding: 32px;
-		}
-
-		.wrapper {
-			width: min(1000px, 100%);
-			margin: 0 auto;
-			background: rgba(18, 8, 10, 0.86);
-			border: 1px solid rgba(255, 80, 80, 0.28);
-			border-radius: 28px;
-			padding: 48px;
-			box-shadow:
-				0 0 40px rgba(255, 0, 55, 0.18),
-				0 20px 80px rgba(0, 0, 0, 0.55);
-			backdrop-filter: blur(16px);
-			position: relative;
-			overflow: hidden;
-		}
-
-		.wrapper::before {
-			content: "";
-			position: absolute;
-			inset: -2px;
-			background: linear-gradient(120deg, transparent, rgba(255, 50, 70, 0.18), transparent);
-			pointer-events: none;
-		}
-
-		header, main {
-			position: relative;
-			z-index: 1;
-		}
-
-		header {
-			text-align: center;
-			margin-bottom: 36px;
-		}
-
-		.badge {
-			display: inline-block;
-			padding: 8px 14px;
-			border-radius: 999px;
-			background: rgba(255, 20, 50, 0.13);
-			border: 1px solid rgba(255, 90, 90, 0.35);
-			color: #ff9ca6;
-			font-size: 0.82rem;
-			font-weight: 700;
-			letter-spacing: 0.12em;
-			text-transform: uppercase;
-			margin-bottom: 16px;
-		}
-
-		h1 {
-			margin: 0;
-			font-size: clamp(2.4rem, 6vw, 4.8rem);
-			line-height: 1;
-			font-weight: 800;
-			letter-spacing: -0.07em;
-			color: #ffffff;
-			text-shadow: 0 0 24px rgba(255, 35, 60, 0.55);
-		}
-
-		.subtitle {
-			max-width: 720px;
-			margin: 20px auto 0;
-			color: #d8b8ba;
-			font-size: 1.05rem;
-		}
-
-		h2 {
-			margin-top: 42px;
-			margin-bottom: 14px;
-			color: #ffffff;
-			font-size: 1.7rem;
-			letter-spacing: -0.03em;
-			border-left: 4px solid #ff3d4f;
-			padding-left: 14px;
-		}
-
-		p {
-			color: #e4c7ca;
-			margin: 12px 0;
-		}
-
-		code {
-			background: rgba(255, 80, 90, 0.15);
-			color: #ffb8bf;
-			padding: 2px 6px;
-			border-radius: 6px;
-		}
-
-		.link-grid {
-			display: grid;
-			grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-			gap: 14px;
-			margin: 28px 0 36px;
-		}
-
-		.card-link {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			text-decoration: none;
-			color: #fff5f5;
-			background: linear-gradient(135deg, rgba(80, 8, 12, 0.92), rgba(28, 8, 10, 0.92));
-			border: 1px solid rgba(255, 85, 85, 0.24);
-			border-radius: 18px;
-			padding: 18px 20px;
-			font-weight: 700;
-			transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-		}
-
-		.card-link::after {
-			content: "→";
-			color: #ff5a67;
-			font-size: 1.2rem;
-			transition: transform 0.2s ease;
-		}
-
-		.card-link:hover {
-			transform: translateY(-3px);
-			border-color: rgba(255, 90, 90, 0.65);
-			box-shadow: 0 12px 30px rgba(255, 0, 45, 0.2);
-			background: linear-gradient(135deg, rgba(130, 10, 18, 0.96), rgba(44, 8, 12, 0.96));
-		}
-
-		.card-link:hover::after {
-			transform: translateX(4px);
-		}
-
-		.final-link {
-			background: linear-gradient(135deg, #9d0b16, #3a070d);
-			border-color: rgba(255, 130, 130, 0.55);
-			box-shadow: 0 0 28px rgba(255, 0, 60, 0.22);
-		}
-
-		.section-card {
-			background: rgba(255, 255, 255, 0.035);
-			border: 1px solid rgba(255, 90, 90, 0.18);
-			border-radius: 22px;
-			padding: 24px;
-			margin: 18px 0;
-		}
-
-		ul {
-			margin: 12px 0;
-			padding-left: 22px;
-			color: #e4c7ca;
-		}
-
-		li {
-			margin: 8px 0;
-		}
-
-		.deliverables {
-			display: grid;
-			grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-			gap: 14px;
-			margin-top: 18px;
-		}
-
-		.button {
-			display: block;
-			text-align: center;
-			text-decoration: none;
-			color: white;
-			background: linear-gradient(135deg, #b10f1c, #5a080e);
-			border: 1px solid rgba(255, 120, 120, 0.45);
-			padding: 16px 18px;
-			border-radius: 16px;
-			font-weight: 700;
-			transition: 0.2s ease;
-		}
-
-		.button:hover {
-			transform: translateY(-3px);
-			box-shadow: 0 12px 30px rgba(255, 0, 45, 0.25);
-		}
-
-		.footer-note {
-			text-align: center;
-			margin-top: 38px;
-			color: #a98b8f;
-			font-size: 0.9rem;
-		}
-
-		@media (max-width: 700px) {
-			body {
-				padding: 18px;
-			}
-
-			.wrapper {
-				padding: 28px 20px;
-				border-radius: 22px;
-			}
-
 			h1 {
-				font-size: 2.5rem;
+				text-align: center;
 			}
+
+			.container {
+				margin: 0 auto;
+				padding: 60px 20%;
+			}
+
+			figure {
+				text-align: center;
+			}
+
+			img {
+				display: inline-block;
+			}
+
+			body {
+				font-family: 'Inter', sans-serif;
+				line-height: 1.4;
+				color: #32323a;
+				background-color: #ffffff;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				width: 40%;
+				height: 100%;
+				margin: 0;
+				position: absolute;
+				left: 50%;
+				transform: translateX(-50%);
+			}
+
+		@media (max-width: 600px) {
+			body {
+				width: 100%;
+				left: 0;
+				transform: none;
+			}
+		}
+
+		a {
+			text-decoration: none;
+			color: #0057A8;
+		}
+
+		a:hover {
+			color: #8E018E !important;
+			text-decoration: underline;
 		}
 	</style>
-</head>
-
-<body>
-	<div class="wrapper">
-		<header>
-			<div class="badge">CS184 / 284A Final Project</div>
-			<h1>Project Hail Minecraft</h1>
-			<p class="subtitle">
-				Turning normal Minecraft gameplay into a cinematic real-time shader experience inspired by 
-				Project Hail Mary.
-			</p>
-		</header>
-
-		<main>
-			<div class="link-grid">
-				<a class="card-link" href="/hw1/index.html">Homework 1</a>
-				<a class="card-link" href="/hw2/index.html">Homework 2</a>
-				<a class="card-link" href="/hw3/index.html">Homework 3</a>
-				<a class="card-link" href="/hw4/index.html">Homework 4</a>
-				<a class="card-link final-link" href="/Final Project/index.html">Final Project</a>
-			</div>
-
-			<section class="section-card">
-				<h2>Team Members</h2>
-				<p>
-					Nicholas Angelici, Kathleen Hua, Mandy Pham, Sophia Prakasa
-				</p>
-			</section>
-
-			<section class="section-card">
-				<h2>Abstract</h2>
-				<p>
-					For our final project, we created a custom Minecraft shader pack inspired by the visual world of 
-					Project Hail Mary. Our goal was to transform normal Minecraft gameplay into a cinematic 
-					science-fiction environment by using post-processing effects, color grading, haze, glow, dust, 
-					and localized light-based environmental changes.
-				</p>
-
-				<p>
-					Rather than modifying the Minecraft engine, we worked through the Iris shader pipeline and focused 
-					primarily on the composite shader stage, where we could remap final screen colors and layer visual 
-					effects efficiently.
-				</p>
-			</section>
-
-			<section class="section-card">
-				<h2>Technical Approach</h2>
-
-				<p>
-					Our project was built as a custom Minecraft shader pack using the Iris shader workflow. Instead of
-					changing the Minecraft engine directly, we worked within the shader pipeline so that our effects could
-					be applied as real-time visual modifications on top of the already-rendered game world. This made the
-					project more practical because we could focus on controlling the final image seen by the player rather
-					than rewriting Minecraft’s rendering system.
-				</p>
-
-				<p>
-					The main file we worked with was <code>shaders/composite.fsh</code>. This fragment shader is responsible
-					for full-screen post-processing: it reads the rendered scene from <code>colortex0</code>, modifies the
-					pixel colors, and outputs the final image to the screen. Because this stage happens after Minecraft has
-					already rendered the world geometry, it gave us a flexible place to apply cinematic color grading,
-					screen-space glow, haze, vignette, dust, and atmospheric effects.
-				</p>
-
-				<p>
-					We started with a simple grayscale shader tutorial to understand how the composite pass works. From
-					there, we modified the RGB channels directly to create a red-tinted cinematic grade. This helped us learn
-					that many large visual changes can be created by remapping color values at the final screen stage. For
-					example, increasing the red channel while reducing or compressing green and blue values made the scene
-					feel darker, warmer, and more dangerous, which matched the Petrova Line and Astrophage mood we wanted.
-				</p>
-
-				<p>
-					After establishing the base color grade, we layered additional post-processing effects. The haze effect
-					softens distant areas of the screen and helps make the environment feel less like normal Minecraft and
-					more like a cinematic sci-fi scene. The glow effect emphasizes bright regions, especially the stream of
-					light, so that it feels like an intense energy source rather than a normal Minecraft light. We also added
-					vignette darkening around the edges of the screen to focus the player’s attention toward the center of the
-					frame and make the final image feel more film-like.
-				</p>
-
-				<p>
-					For the Petrova Line effect, we focused on building the illusion of a powerful red light stream. We used
-					screen-space techniques to add small particles, glitter, dust, and atmospheric noise without rendering
-					thousands of real 3D particle objects. This was an important design choice because true volumetric
-					particles would be much more expensive and harder to control in real time. By approximating the particles
-					in post-processing, we were able to create a similar visual feeling while keeping the shader lightweight
-					enough for gameplay.
-				</p>
-
-				<p>
-					One of our key technical features was a localized environmental color shift. We programmed the world to
-					gradually become more red as the player moves closer to a designated stream of light. Conceptually, this
-					acts like a distance-based shader response: the closer the camera or player is to the light source, the
-					stronger the red grading, haze, and glow become. This helped us connect the visual effect to player
-					movement, making the shader feel interactive rather than just a static filter over the screen.
-				</p>
-
-				<p>
-					We also created a second environment inspired by Planet Adrian by modifying the End dimension to produce
-					a green atmospheric look. This required tuning the same general shader ideas in a different direction:
-					instead of emphasizing crimson light, we adjusted the color palette toward green, yellow, and hazy tones.
-					This showed that our shader pipeline was reusable and could support multiple visual moods depending on
-					how the post-processing parameters were adjusted.
-				</p>
-
-				<p>
-					Throughout implementation, we balanced visual quality with performance. Since Minecraft needs to remain
-					interactive, we avoided techniques that would require expensive geometry changes or physically accurate
-					volumetric simulation. Most of our effects are calculated in screen space using the final rendered image,
-					which keeps the shader relatively efficient. This approach allowed us to prioritize the cinematic style of
-					the final image while still preserving smooth player movement and responsive gameplay.
-				</p>
-
-				<p>
-					Overall, our technical approach uses real-time post-processing as a storytelling tool. By combining color
-					grading, glow, haze, vignette, particles, and distance-based environmental changes, we transformed a
-					standard Minecraft scene into a stylized sci-fi environment that visually references Project Hail Mary
-					while still running inside the normal Minecraft shader pipeline.
-				</p>
-			</section>
-
-			<section class="section-card">
-				<h2>Final Features</h2>
-				<ul>
-					<li>Custom crimson cinematic color grading</li>
-					<li>Post-processing glow and haze effects</li>
-					<li>Screen-space glitter, dust, and particle-like visuals</li>
-					<li>A large red swirled sky inspired by Project Hail Mary reference imagery</li>
-					<li>Localized red environmental shift based on player distance to a light stream</li>
-					<li>A modified End dimension inspired by Planet Adrian’s green atmosphere</li>
-				</ul>
-			</section>
-
-			<section class="section-card">
-				<h2>Results</h2>
-				<p>
-					Our final shader successfully changes the mood and visual identity of Minecraft while maintaining 
-					smooth gameplay. The shader creates a dramatic red sci-fi atmosphere for the Petrova Line scene, 
-					with a bright central beam, red haze, glowing particles, and darkened edges that guide the viewer’s 
-					attention toward the cinematic focal point.
-				</p>
-
-				<p>
-					We also created a separate Planet Adrian-inspired environment by modifying the End dimension to have 
-					a green atmospheric look. This demonstrates that the same shader pipeline can be tuned to create 
-					different fictional environments by adjusting the color grading, haze, and sky effects.
-				</p>
-			</section>
-
-			<section class="section-card">
-				<h2>Comparison</h2>
-				<p>
-					Compared to vanilla Minecraft, our shader produces a much more cinematic and stylized visual 
-					experience. Vanilla Minecraft uses a brighter and more neutral color palette, while our shader adds 
-					strong atmospheric mood through red and green color grading, bloom-like glow, and screen-space 
-					visual effects.
-				</p>
-
-				<p>
-					The tradeoff is that our shader is less physically accurate than a full 3D particle or volumetric 
-					lighting system, but it is much more practical for real-time gameplay.
-				</p>
-			</section>
-
-			<section class="section-card">
-				<h2>Performance</h2>
-				<p>
-					During testing, our shader did not introduce noticeable lag or major frame drops compared to regular 
-					Minecraft or standard shader packs. Because our effects are mostly screen-space post-processing 
-					effects, they are relatively lightweight.
-				</p>
-
-				<p>
-					We prioritized real-time responsiveness over physically accurate simulation, which allowed us to 
-					maintain smooth gameplay while still achieving a strong cinematic look.
-				</p>
-			</section>
-
-			<section class="section-card">
-				<h2>What We Learned</h2>
-				<p>
-					This project showed us how much visual style can be created through shader post-processing alone. 
-					We learned how Minecraft shader packs are structured, how Iris processes shader folders, and how 
-					the <code>composite.fsh</code> pass can be used to transform the final screen image.
-				</p>
-
-				<p>
-					We also learned that visual effects such as haze, glow, dust, and color grading can communicate 
-					atmosphere and story even when they are approximations rather than physically accurate simulations.
-				</p>
-
-				<p>
-					One of our biggest takeaways was that small shader choices can create large emotional changes. 
-					A red shader can make the world feel dangerous and cinematic, while a green atmospheric grade can 
-					suggest an alien planet. This helped us understand how graphics techniques are not only technical 
-					tools, but also storytelling tools.
-				</p>
-			</section>
-
-			<section class="section-card">
-				<h2>Division of Labor</h2>
-				<ul>
-					<li><strong>Nicholas Angelici:</strong> Shader setup, technical implementation, testing</li>
-					<li><strong>Kathleen Hua:</strong> Visual design, reference matching, presentation materials</li>
-					<li><strong>Mandy Pham:</strong> Write-up, demo organization, visual comparison, presentation script</li>
-					<li><strong>Sophia Prakasa:</strong> Shader tuning, scene design, documentation support</li>
-				</ul>
-			</section>
-
-			<section class="section-card">
-				<h2>Final Deliverables</h2>
-				<p>
-					Click the links below to access our final webpage, presentation slides, and demo video.
-				</p>
-
-				<div class="deliverables">
-					<a class="button" href="https://cal-cs184-student.github.io/hw-webpages-tpmandy24/Final%20Project/index.html">Final Webpage</a>
-					<a class="button" href="https://docs.google.com/presentation/d/100VBF35g3-jTDw5Dvf1SCMahNxBZWT_yDE0f3P5lfZQ/edit?slide=id.g3da9f5acb23_2_46#slide=id.g3da9f5acb23_2_46">Presentation Slides</a>
-					<a class="button" href="YOUR_VIDEO_LINK">Demo Video</a>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS184/284A Homework Webpages</title>
+	</head>
+	<body>
+		<div class="wrapper">
+			<header>
+				<h1 style="align-self:flex-end;">CS184/284A Homework Webpages</h1>
+			</header>
+			<main>
+				<div class="content">
+					<ul>
+						<li><a href="/hw1/index.html">Homework 1</a></li>
+						<li><a href="/hw2/index.html">Homework 2</a></li>
+						<li><a href="/hw3/index.html">Homework 3</a></li>
+						<li><a href="/hw4/index.html">Homework 4</a></li>
+						<li><a href="/Final Project/index.html">Final Project</a></li>
+					</ul>
 				</div>
-			</section>
-
-			<section class="section-card">
-				<h2>References</h2>
-				<ul>
-					<li>Project Hail Mary visual reference images</li>
-					<li>Minecraft Iris shader documentation and tutorial workflow</li>
-					<li>CS184 final project guidelines</li>
-				</ul>
-			</section>
-
-			<p class="footer-note">
-				Designed with a red cinematic shader-inspired theme.
-			</p>
-		</main>
-	</div>
-
+			</main>
+		</div>
+	</body>
 	<script>
-		var links = document.body.getElementsByTagName("a");
-		var a = window.location.href.indexOf(".io");
-
-		if (a !== -1) {
-			var repo_name = window.location.href.substring(a + 3);
-
-			for (var i = 0; i < links.length; i++) {
-				var link = links[i];
-
-				if (link.href.includes(".io")) {
-					var actual_name = link.href.substring(link.href.indexOf(".io") + 4);
-					link.href = repo_name + actual_name;
-				}
-			}
+		var links = document.body.getElementsByTagName("a")
+		var a = window.location.href.indexOf(".io")
+		var repo_name = window.location.href.substring(a+3)
+		for(var i = 0; i < links.length; i++){
+			var link = links[i]
+			var actual_name = link.href.substring(link.href.indexOf(".io")+4)
+			link.href = repo_name + actual_name
 		}
 	</script>
-</body>
 </html>
