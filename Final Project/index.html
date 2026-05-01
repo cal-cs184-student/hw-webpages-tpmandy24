@@ -26,7 +26,7 @@
 		}
 
 		.container {
-			width: min(1050px, 100%);
+			width: min(1100px, 100%);
 			margin: 0 auto;
 			background: rgba(18, 8, 10, 0.86);
 			border: 1px solid rgba(255, 80, 80, 0.28);
@@ -201,22 +201,30 @@
 			font-size: 0.9rem;
 		}
 
-		table {
-			width: 100%;
-			text-align: center;
-			border-collapse: collapse;
-		}
-
-		td {
-			text-align: center;
-			padding: 12px;
-			vertical-align: top;
-		}
-
 		.image-grid {
-			display: flex;
-			flex-direction: column;
-			align-items: center;
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 22px;
+			margin-top: 20px;
+		}
+
+		.image-card {
+			background: rgba(0, 0, 0, 0.22);
+			border: 1px solid rgba(255, 90, 90, 0.16);
+			border-radius: 20px;
+			padding: 14px;
+		}
+
+		.image-card img {
+			width: 100%;
+			height: auto;
+		}
+
+		.comparison-row {
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 22px;
+			margin-top: 18px;
 		}
 
 		.footer-note {
@@ -226,7 +234,7 @@
 			font-size: 0.9rem;
 		}
 
-		@media (max-width: 700px) {
+		@media (max-width: 800px) {
 			body {
 				padding: 18px;
 			}
@@ -240,9 +248,9 @@
 				font-size: 2.5rem;
 			}
 
-			td {
-				display: block;
-				width: 100%;
+			.image-grid,
+			.comparison-row {
+				grid-template-columns: 1fr;
 			}
 		}
 	</style>
@@ -291,9 +299,9 @@
 		</div>
 
 		<figure>
-			<img src="hero.png" alt="Project Hail Minecraft final render" style="width:85%">
+			<img src="Screenshot 2026-05-01 at 10.19.57 AM.png" alt="Red cinematic shader particle scene" style="width:90%">
 			<figcaption>
-				Final cinematic shader render inspired by the Petrova Line and Astrophage visuals.
+				Final red cinematic shader effect with glowing particle-like details and a strong Petrova Line-inspired color grade.
 			</figcaption>
 		</figure>
 
@@ -403,13 +411,6 @@
 				image, which keeps the shader relatively efficient. This approach allowed us to prioritize the
 				cinematic style of the final image while still preserving smooth player movement and responsive gameplay.
 			</p>
-
-			<p>
-				Overall, our technical approach uses real-time post-processing as a storytelling tool. By combining
-				color grading, glow, haze, vignette, particles, and distance-based environmental changes, we transformed
-				a standard Minecraft scene into a stylized sci-fi environment that visually references
-				<em>Project Hail Mary</em> while still running inside the normal Minecraft shader pipeline.
-			</p>
 		</section>
 
 		<section class="section-card">
@@ -462,7 +463,7 @@
 				<li>Custom crimson cinematic color grading</li>
 				<li>Post-processing glow and haze effects</li>
 				<li>Screen-space glitter, dust, and particle-like visuals</li>
-				<li>A large red swirled sky inspired by <em>Project Hail Mary</em> reference imagery</li>
+				<li>A large red swirled sky and red sphere inspired by <em>Project Hail Mary</em> reference imagery</li>
 				<li>Localized red environmental shift based on player distance to a stream of light</li>
 				<li>A modified End dimension inspired by Planet Adrian’s green atmosphere</li>
 				<li>Real-time gameplay-focused implementation using lightweight screen-space effects</li>
@@ -487,28 +488,33 @@
 			</p>
 
 			<div class="image-grid">
-				<table>
-					<tr>
-						<td>
-							<img src="vanilla.png" width="400px" alt="Vanilla Minecraft comparison">
-							<figcaption>Vanilla Minecraft scene before shader effects.</figcaption>
-						</td>
-						<td>
-							<img src="petrova-line.png" width="400px" alt="Petrova Line shader result">
-							<figcaption>Petrova Line-inspired red shader result.</figcaption>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<img src="planet-adrian.png" width="400px" alt="Planet Adrian shader result">
-							<figcaption>Planet Adrian-inspired green End dimension.</figcaption>
-						</td>
-						<td>
-							<img src="comparison.png" width="400px" alt="Shader comparison">
-							<figcaption>Side-by-side comparison of visual style changes.</figcaption>
-						</td>
-					</tr>
-				</table>
+				<div class="image-card">
+					<img src="Screenshot 2026-05-01 at 10.24.12 AM.png" alt="Green Planet Adrian shader overview">
+					<figcaption>
+						Planet Adrian-inspired green atmospheric shader applied across the End dimension.
+					</figcaption>
+				</div>
+
+				<div class="image-card">
+					<img src="Screenshot 2026-05-01 at 10.19.57 AM.png" alt="Red particle shader effect">
+					<figcaption>
+						Screen-space red shader pass with glowing dust and particle-like visual elements.
+					</figcaption>
+				</div>
+
+				<div class="image-card">
+					<img src="Screenshot 2026-05-01 at 10.19.34 AM.png" alt="Red sphere shader effect">
+					<figcaption>
+						Large red/orange sphere effect layered with small glowing particles.
+					</figcaption>
+				</div>
+
+				<div class="image-card">
+					<img src="Screenshot 2026-05-01 at 10.25.46 AM.png" alt="Petrova Line gameplay scene">
+					<figcaption>
+						Final gameplay scene showing the shader environment around a test structure.
+					</figcaption>
+				</div>
 			</div>
 		</section>
 
@@ -527,6 +533,62 @@
 				approximations rather than full volumetric simulations. However, this tradeoff allowed us to maintain
 				real-time performance and keep the shader practical for interactive gameplay.
 			</p>
+
+			<div class="comparison-row">
+				<div class="image-card">
+					<img src="2026-05-01_10.26.43.png" alt="Vanilla Minecraft fence scene">
+					<figcaption>
+						Vanilla-style End environment before the heavy red cinematic shader pass.
+					</figcaption>
+				</div>
+
+				<div class="image-card">
+					<img src="Screenshot 2026-05-01 at 10.25.46 AM.png" alt="Final red shader comparison">
+					<figcaption>
+						Final shader scene with darker atmosphere, red light, and cinematic mood.
+					</figcaption>
+				</div>
+			</div>
+		</section>
+
+		<section class="section-card">
+			<h2>Additional Rendered Scenes</h2>
+
+			<p>
+				We also tested the shader in several gameplay situations to make sure the effect still worked from
+				different camera positions. These tests helped us evaluate whether the shader remained readable during
+				normal interaction, close-up views, and wide environmental shots.
+			</p>
+
+			<div class="image-grid">
+				<div class="image-card">
+					<img src="Screenshot 2026-05-01 at 10.25.26 AM.png" alt="Close-up vanilla scene">
+					<figcaption>
+						Close-up test scene with the Minecraft UI and player interaction visible.
+					</figcaption>
+				</div>
+
+				<div class="image-card">
+					<img src="2026-05-01_10.27.21.png" alt="Enderman close-up scene">
+					<figcaption>
+						Close-up scene used to test visibility, contrast, and character readability.
+					</figcaption>
+				</div>
+
+				<div class="image-card">
+					<img src="2026-05-01_10.32.51.png" alt="Character scene">
+					<figcaption>
+						Character scene showing how the environment, entities, and shader effects interact.
+					</figcaption>
+				</div>
+
+				<div class="image-card">
+					<img src="2026-05-01_10.26.43.png" alt="Fence structure scene">
+					<figcaption>
+						Test structure used as a simple benchmark for comparing scene readability.
+					</figcaption>
+				</div>
+			</div>
 		</section>
 
 		<section class="section-card">
@@ -602,7 +664,7 @@
 
 			<div class="link-card">
 				<a href="YOUR_FINAL_WEBPAGE_LINK">Final Webpage</a>
-				<a href="https://docs.google.com/presentation/d/100VBF35g3-jTDw5Dvf1SCMahNxBZWT_yDE0f3P5lfZQ/edit?slide=id.g3da9f5acb23_2_46#slide=id.g3da9f5acb23_2_46">Presentation Slides</a>
+				<a href="YOUR_SLIDES_LINK">Presentation Slides</a>
 				<a href="YOUR_VIDEO_LINK">Demo Video</a>
 			</div>
 		</section>
