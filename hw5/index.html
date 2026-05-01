@@ -1,0 +1,119 @@
+<h1>Project Hail Minecraft: A Cinematic Shader Pack Inspired by Project Hail Mary</h1>
+
+<p>
+Team Members: Nicholas Angelici, Kathleen Hua, Mandy Pham, Sophia Prakasa
+</p>
+
+<p>
+Links:
+<a href="YOUR_FINAL_WEBPAGE_LINK">Final Webpage</a> |
+<a href="https://docs.google.com/presentation/d/100VBF35g3-jTDw5Dvf1SCMahNxBZWT_yDE0f3P5lfZQ/edit?usp=sharing">Presentation Slides</a> |
+<a href="YOUR_VIDEO_LINK">Demo Video</a>
+</p>
+
+<h2>Abstract</h2>
+<p>
+For our final project, we created a custom Minecraft shader pack inspired by the visual world of 
+Project Hail Mary. Our goal was to transform normal Minecraft gameplay into a cinematic 
+science-fiction environment by using post-processing effects, color grading, haze, glow, dust, 
+and localized light-based environmental changes. Rather than modifying the Minecraft engine, 
+we worked through the Iris shader pipeline and focused primarily on the composite shader stage, 
+where we could remap final screen colors and layer visual effects efficiently.
+</p>
+
+<h2>Technical Approach</h2>
+<p>
+Our shader work centered on the <code>shaders/composite.fsh</code> file, which reads the rendered 
+Minecraft scene from <code>colortex0</code> and outputs the final processed image. This allowed us 
+to apply full-screen effects after the base scene had already been rendered. We implemented 
+a red cinematic color grade by remapping RGB values, then layered additional effects such as 
+glow, haze, vignette, glitter, dust, and atmospheric particles.
+</p>
+
+<p>
+A key feature of our project was a localized environmental effect where the world gradually 
+becomes redder as the player approaches a stream of light. This was designed to imitate the 
+Petrova Line/Astrophage aesthetic from Project Hail Mary. Instead of rendering expensive true 
+3D particles, we approximated many of these effects in screen space, which helped preserve 
+real-time performance.
+</p>
+
+<h2>Final Features</h2>
+<ul>
+  <li>Custom crimson cinematic color grading</li>
+  <li>Post-processing glow and haze effects</li>
+  <li>Screen-space glitter, dust, and particle-like visuals</li>
+  <li>A large red swirled sky inspired by Project Hail Mary reference imagery</li>
+  <li>Localized red environmental shift based on player distance to a light stream</li>
+  <li>A modified End dimension inspired by Planet Adrian’s green atmosphere</li>
+</ul>
+
+<h2>Results</h2>
+<p>
+Our final shader successfully changes the mood and visual identity of Minecraft while maintaining 
+smooth gameplay. The shader creates a dramatic red sci-fi atmosphere for the Petrova Line scene, 
+with a bright central beam, red haze, glowing particles, and darkened edges that guide the viewer’s 
+attention toward the cinematic focal point.
+</p>
+
+<p>
+We also created a separate Planet Adrian-inspired environment by modifying the End dimension 
+to have a green atmospheric look. This demonstrates that the same shader pipeline can be tuned 
+to create different fictional environments by adjusting the color grading, haze, and sky effects.
+</p>
+
+<h2>Comparison</h2>
+<p>
+Compared to vanilla Minecraft, our shader produces a much more cinematic and stylized visual 
+experience. Vanilla Minecraft uses a brighter and more neutral color palette, while our shader 
+adds strong atmospheric mood through red and green color grading, bloom-like glow, and screen-space 
+visual effects. The tradeoff is that our shader is less physically accurate than a full 3D particle 
+or volumetric lighting system, but it is much more practical for real-time gameplay.
+</p>
+
+<h2>Performance</h2>
+<p>
+During testing, our shader did not introduce noticeable lag or major frame drops compared to 
+regular Minecraft or standard shader packs. Because our effects are mostly screen-space 
+post-processing effects, they are relatively lightweight. We prioritized real-time responsiveness 
+over physically accurate simulation, which allowed us to maintain smooth gameplay while still 
+achieving a strong cinematic look.
+</p>
+
+<h2>What We Learned</h2>
+<p>
+This project showed us how much visual style can be created through shader post-processing alone. 
+We learned how Minecraft shader packs are structured, how Iris processes shader folders, and how 
+the <code>composite.fsh</code> pass can be used to transform the final screen image. We also learned 
+that visual effects such as haze, glow, dust, and color grading can communicate atmosphere and 
+story even when they are approximations rather than physically accurate simulations.
+</p>
+
+<p>
+One of our biggest takeaways was that small shader choices can create large emotional changes. 
+A red shader can make the world feel dangerous and cinematic, while a green atmospheric grade can 
+suggest an alien planet. This helped us understand how graphics techniques are not only technical 
+tools, but also storytelling tools.
+</p>
+
+<h2>Division of Labor</h2>
+<ul>
+  <li><b>Nicholas Angelici:</b> Shader setup, technical implementation, testing</li>
+  <li><b>Kathleen Hua:</b> Visual design, reference matching, presentation materials</li>
+  <li><b>Mandy Pham:</b> Write-up, demo organization, visual comparison, presentation script</li>
+  <li><b>Sophia Prakasa:</b> Shader tuning, scene design, documentation support</li>
+</ul>
+
+<h2>Final Deliverables</h2>
+<ul>
+  <li><a href="YOUR_FINAL_WEBPAGE_LINK">Final Webpage</a></li>
+  <li><a href="YOUR_SLIDES_LINK">Presentation Slides</a></li>
+  <li><a href="YOUR_VIDEO_LINK">Demo Video</a></li>
+</ul>
+
+<h2>References</h2>
+<ul>
+  <li>Project Hail Mary visual reference images</li>
+  <li>Minecraft Iris shader documentation/tutorial workflow</li>
+  <li>CS184 final project guidelines</li>
+</ul>
